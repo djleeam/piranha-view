@@ -1,0 +1,5 @@
+- mvn spring-boot:run
+- in a different window run:
+  - mvn -Dtest=PiranhaViewIntegrationTest#testCase1 test
+  - mvn -Dtest=PiranhaViewIntegrationTest#testCase2 test
+
