@@ -1,11 +1,11 @@
-Getting started:
+*Getting started:*
 
 * mvn spring-boot:run
 * in a different window run:
 ** mvn -Dtest=PiranhaViewIntegrationTest#testCase1 test
 ** mvn -Dtest=PiranhaViewIntegrationTest#testCase2 test
 
-Exploring the API:
+*Exploring the API:*
 
 * Time Slots
 ** curl http://localhost:3000/api/timeslots
