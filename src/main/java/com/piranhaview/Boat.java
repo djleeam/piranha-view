@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="Boat")
-public class Boat {
+public class Boat implements Comparable<Boat> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,7 +18,6 @@ public class Boat {
 
 	private int capacity;
 	private String name;
-	private boolean isBooked;
 
 	public long getId() {
 		return id;
@@ -44,11 +43,44 @@ public class Boat {
 		this.name = name;
 	}
 
-	public boolean isBooked() {
-		return isBooked;
+	@Override
+	public int compareTo(Boat o) {
+		if (this.getCapacity() > o.getCapacity()) {
+			return -1;
+		}
+		else if (this.getCapacity() < o.getCapacity()) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
 
-	public void setBooked(boolean isBooked) {
-		this.isBooked = isBooked;		
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Boat other = (Boat) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Boat [id=" + id + ", capacity=" + capacity + ", name=" + name
+				+ "]";
 	}
 }

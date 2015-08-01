@@ -1,5 +1,6 @@
 package com.piranhaview;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -60,6 +61,10 @@ public class TimeSlot {
 		return id;
 	}
 
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public Date getStartTime() {
 		return startTime;
 	}
@@ -93,7 +98,7 @@ public class TimeSlot {
 	}
 
 	public List<Boat> getBoats() {
-		return boats;
+		return (boats != null) ? boats : new ArrayList<Boat>();
 	}
 
 	public void setBoats(List<Boat> boats) {
@@ -101,7 +106,7 @@ public class TimeSlot {
 	}
 
 	public List<Booking> getBookings() {
-		return bookings;
+		return (bookings != null) ? bookings : new ArrayList<Booking>();
 	}
 
 	public void setBookings(List<Booking> bookings) {

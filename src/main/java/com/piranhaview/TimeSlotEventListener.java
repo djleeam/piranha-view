@@ -1,49 +1,38 @@
 package com.piranhaview;
 
-import java.util.List;
+import java.util.PriorityQueue;
 
 import javax.persistence.PostLoad;
 
 public class TimeSlotEventListener {
+	private PriorityQueue<Boat> boatQueue = new PriorityQueue<Boat>();
 
 	@PostLoad
 	public void postLoad(Object object) {
 		TimeSlot timeSlot = (TimeSlot) object;
 
-		List<Booking> bookings = timeSlot.getBookings();
-		List<Boat> boats = timeSlot.getBoats();
+		for (Boat boat : timeSlot.getBoats()) {
+			if (!boatQueue.contains(boat)) {
+				boatQueue.add(boat);
+			}
+		}
 
 		int custCount = 0;
+		for (Booking booking : timeSlot.getBookings()) {
+			Boat boat = boatQueue.remove();
+			if (boat != null && boat.getCapacity() >= booking.getSize()) {
+				boat.setCapacity(boat.getCapacity() - booking.getSize());
+				boatQueue.add(boat);
+				custCount += booking.getSize();
+			}
+		}
+
 		int available = 0;
-
-		if (bookings == null || bookings.isEmpty()) {
-			if (boats != null && !boats.isEmpty()) {
-				for (Boat boat : boats) {
-					if (boat.getCapacity() > available) {
-						available = boat.getCapacity();
-					}
-				}
-			}
+		if (boatQueue.peek() != null) {
+			available = boatQueue.peek().getCapacity();
 		}
 
-		if (bookings != null && !bookings.isEmpty()) {
-			for (Booking booking : bookings) {
-				if (boats != null && !boats.isEmpty()) {
-					for (Boat boat : boats) {
-						if (boat.getCapacity() >= booking.getSize()) {
-							available = boat.getCapacity() - booking.getSize();
-							boat.setCapacity(boat.getCapacity() - booking.getSize());
-							custCount += booking.getSize();
-						}
-						
-						available = Math.max(available, boat.getCapacity());
-					}
-				}
-			}
-		}
-
-		timeSlot.setCustomerCount(custCount);
 		timeSlot.setAvailability(available);
+		timeSlot.setCustomerCount(custCount);
 	}
-
 }

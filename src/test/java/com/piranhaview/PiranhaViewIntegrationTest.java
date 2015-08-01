@@ -19,7 +19,6 @@ public class PiranhaViewIntegrationTest {
 
 	@Test
 	public void testCase1() throws Exception {
-		
 		String timeslot_1_id = createEntity(TIMESLOTS_PATH, "{ \"start_time\": 1437533075000, \"duration\": 120 }");
 		String boat_1_id = createEntity(BOATS_PATH, "{ \"capacity\": 8, \"name\": \"Amazon Express\" }");
 		String boat_2_id = createEntity(BOATS_PATH, "{ \"capacity\": 4, \"name\": \"Amazon Express Mini\" }");
