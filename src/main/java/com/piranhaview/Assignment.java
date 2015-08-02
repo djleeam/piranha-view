@@ -23,14 +23,6 @@ public class Assignment {
 	@Column(name="boat_id")
 	private long boatId;
 
-	public long getTimeSlotId() {
-		return timeslotId;
-	}
-
-	public void setTimeSlotId(long timeslotId) {
-		this.timeslotId = timeslotId;
-	}
-
 	public long getBoatId() {
 		return boatId;
 	}

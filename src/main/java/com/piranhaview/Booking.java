@@ -22,6 +22,7 @@ public class Booking {
 	@Column(name="timeslot_id")
 	private long timeslotId;
 
+	@JsonProperty("size")
 	private int size;
 
 	public long getId() {
@@ -30,14 +31,6 @@ public class Booking {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public long getTimeSlotId() {
-		return timeslotId;
-	}
-
-	public void setTimeSlotId(long timeslotId) {
-		this.timeslotId = timeslotId;
 	}
 
 	public int getSize() {

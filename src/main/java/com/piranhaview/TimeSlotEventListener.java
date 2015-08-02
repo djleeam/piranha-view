@@ -19,7 +19,7 @@ public class TimeSlotEventListener {
 
 		int custCount = 0;
 		for (Booking booking : timeSlot.getBookings()) {
-			Boat boat = boatQueue.remove();
+			Boat boat = (!boatQueue.isEmpty()) ? boatQueue.remove() : null;
 			if (boat != null && boat.getCapacity() >= booking.getSize()) {
 				boat.setCapacity(boat.getCapacity() - booking.getSize());
 				boatQueue.add(boat);
