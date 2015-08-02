@@ -1,4 +1,4 @@
-package com.piranhaview;
+package com.piranhaview.service;
 
 import java.util.List;
 import java.util.PriorityQueue;
@@ -7,6 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.common.collect.Lists;
+import com.piranhaview.data.BookingRepository;
+import com.piranhaview.data.TimeSlotRepository;
+import com.piranhaview.domain.Boat;
+import com.piranhaview.domain.Booking;
+import com.piranhaview.domain.TimeSlot;
 
 @Service
 public class BookingService implements IBookingService {

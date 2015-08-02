@@ -1,6 +1,8 @@
-package com.piranhaview;
+package com.piranhaview.service;
 
 import java.util.List;
+
+import com.piranhaview.domain.Assignment;
 
 public interface IAssignmentService {
 

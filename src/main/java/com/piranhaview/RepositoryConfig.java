@@ -4,6 +4,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 
+import com.piranhaview.domain.Assignment;
+import com.piranhaview.domain.Boat;
+import com.piranhaview.domain.Booking;
+import com.piranhaview.domain.TimeSlot;
+
 @Configuration
 public class RepositoryConfig extends RepositoryRestMvcConfiguration {
 

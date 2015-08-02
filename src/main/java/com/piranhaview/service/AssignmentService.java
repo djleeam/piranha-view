@@ -1,4 +1,4 @@
-package com.piranhaview;
+package com.piranhaview.service;
 
 import java.util.List;
 
@@ -6,6 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.common.collect.Lists;
+import com.piranhaview.data.AssignmentRepository;
+import com.piranhaview.data.BoatRepository;
+import com.piranhaview.data.TimeSlotRepository;
+import com.piranhaview.domain.Assignment;
+import com.piranhaview.domain.Boat;
+import com.piranhaview.domain.TimeSlot;
 
 @Service
 public class AssignmentService implements IAssignmentService {

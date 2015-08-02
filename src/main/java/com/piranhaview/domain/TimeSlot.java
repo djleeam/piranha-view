@@ -1,4 +1,4 @@
-package com.piranhaview;
+package com.piranhaview.domain;
 
 import java.util.ArrayList;
 import java.util.Date;

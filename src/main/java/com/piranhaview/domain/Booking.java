@@ -1,4 +1,4 @@
-package com.piranhaview;
+package com.piranhaview.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
