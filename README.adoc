@@ -8,22 +8,48 @@
 *Exploring the API:*
 
 * Time Slots
-** curl http://localhost:3000/api/timeslots
-** curl -i -X POST -H "Content-Type:application/json" -d '{  "start_time" : 1437533075000,  "duration" : 120 }' http://localhost:3000/api/timeslots
-** curl http://localhost:3000/api/timeslots/1
-** curl -X PUT -H "Content-Type:application/json" -d '{ "start_time": 1437533075000, "duration": 60 }' http://localhost:3000/api/timeslots/1
-** curl -i -X POST -H "Content-Type:application/json" -d '{  "start_time" : 1437533075000,  "duration" : 120 }' http://localhost:3000/api/timeslots
-** curl -X DELETE http://localhost:3000/api/timeslots/2
+----
+curl http://localhost:3000/api/timeslots
+----
+----
+curl -i -X POST -H 'Content-Type:application/json' -d '{  "start_time" : 1437533075000,  "duration" : 120 }' http://localhost:3000/api/timeslots
+----
+----
+curl http://localhost:3000/api/timeslots/1
+----
+----
+curl -X PUT -H 'Content-Type:application/json' -d '{ "start_time": 1437533075000, "duration": 60 }' http://localhost:3000/api/timeslots/1
+----
+----
+curl -i -X POST -H 'Content-Type:application/json' -d '{  "start_time" : 1437533075000,  "duration" : 120 }' http://localhost:3000/api/timeslots
+----
+----
+curl -X DELETE http://localhost:3000/api/timeslots/2
+----
 
 * Boats
-** curl http://localhost:3000/api/boats
-** curl -i -X POST -H "Content-Type:application/json" -d '{  "capacity" : 8,  "name" : "Amazon Express" }' http://localhost:3000/api/boats
-** curl http://localhost:3000/api/boats/1
+----
+curl http://localhost:3000/api/boats
+----
+----
+curl -i -X POST -H 'Content-Type:application/json' -d '{  "capacity" : 8,  "name" : "Amazon Express" }' http://localhost:3000/api/boats
+----
+----
+curl http://localhost:3000/api/boats/1
+----
 
 * Assignments
-** curl http://localhost:3000/api/assignments
-** curl -i -X POST -H "Content-Type:application/json" -d '{  "timeslot_id" : 1,  "boat_id" : 1}' http://localhost:3000/api/assignments
+----
+curl http://localhost:3000/api/assignments
+----
+----
+curl -i -X POST -H 'Content-Type:application/json' -d '{  "timeslot_id" : 1,  "boat_id" : 1}' http://localhost:3000/api/assignments
+----
 
 * Bookings
-** curl http://localhost:3000/api/bookings
-** curl -i -X POST -H "Content-Type:application/json" -d '{  "timeslot_id" : 1,  "size" : 4}' http://localhost:3000/api/bookings
+----
+curl http://localhost:3000/api/bookings
+----
+----
+curl -i -X POST -H 'Content-Type:application/json' -d '{  "timeslot_id" : 1,  "size" : 4}' http://localhost:3000/api/bookings
+----
