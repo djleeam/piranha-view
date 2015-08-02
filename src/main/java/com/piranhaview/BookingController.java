@@ -35,20 +35,20 @@ public class BookingController {
     @ResponseStatus(HttpStatus.CREATED)
     public HttpEntity<Resource<Booking>> create(@RequestBody @Valid Booking entity) {
         Booking booking = service.create(entity);
-        Resource<Booking> bookingResource = new Resource<Booking>(booking);
-        bookingResource.add(linkTo(methodOn(BookingController.class).findOne(booking.getId())).withSelfRel());
+        Resource<Booking> resource = new Resource<Booking>(booking);
+        resource.add(linkTo(methodOn(BookingController.class).findOne(booking.getId())).withSelfRel());
 
-        return new HttpEntity<Resource<Booking>>(bookingResource);
+        return new HttpEntity<Resource<Booking>>(resource);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public HttpEntity<Resource<Booking>> findOne(@PathVariable Long id) {
         Booking booking = service.findOne(id);
-        Resource<Booking> bookingResource = new Resource<Booking>(booking);
-        bookingResource.add(linkTo(methodOn(BookingController.class).findOne(booking.getId())).withSelfRel());
+        Resource<Booking> resource = new Resource<Booking>(booking);
+        resource.add(linkTo(methodOn(BookingController.class).findOne(booking.getId())).withSelfRel());
 
-        return new HttpEntity<Resource<Booking>>(bookingResource);
+        return new HttpEntity<Resource<Booking>>(resource);
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -58,9 +58,9 @@ public class BookingController {
         
         List<Resource<Booking>> resources = new ArrayList<Resource<Booking>>();
         for (Booking booking : bookings) {
-            Resource<Booking> bookingResource = new Resource<Booking>(booking);
-            bookingResource.add(linkTo(methodOn(BookingController.class).findOne(booking.getId())).withSelfRel());
-            resources.add(bookingResource);
+            Resource<Booking> resource = new Resource<Booking>(booking);
+            resource.add(linkTo(methodOn(BookingController.class).findOne(booking.getId())).withSelfRel());
+            resources.add(resource);
         }
 
         return new HttpEntity<Resources<Resource<Booking>>>(new Resources<Resource<Booking>>(resources));

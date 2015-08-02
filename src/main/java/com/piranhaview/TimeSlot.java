@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,7 +21,6 @@ import javax.persistence.TemporalType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
-@EntityListeners(TimeSlotEventListener.class)
 @Table(name="TimeSlot")
 public class TimeSlot {
 

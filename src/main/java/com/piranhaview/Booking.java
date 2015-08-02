@@ -33,6 +33,14 @@ public class Booking {
 		this.id = id;
 	}
 
+	public long getTimeslotId() {
+		return timeslotId;
+	}
+
+	public void setTimeslotId(long timeslotId) {
+		this.timeslotId = timeslotId;
+	}
+
 	public int getSize() {
 		return size;
 	}
