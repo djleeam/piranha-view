@@ -1,12 +1,13 @@
 *Getting started:*
 
-* mvn spring-boot:run
-* in a different window run:
+* To run integration tests
 ----
-mvn -Dtest=PiranhaViewIntegrationTest#testCase1 test
+mvn -U clean install
 ----
+
+* To start application
 ----
-mvn -Dtest=PiranhaViewIntegrationTest#testCase2 test
+mvn spring-boot:run
 ----
 
 *Exploring the API:*

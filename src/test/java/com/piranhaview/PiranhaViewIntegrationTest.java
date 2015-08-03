@@ -5,11 +5,18 @@ import static com.jayway.restassured.RestAssured.given;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.WebIntegrationTest;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.jayway.restassured.builder.RequestSpecBuilder;
 import com.jayway.restassured.response.Response;
 import com.jayway.restassured.specification.RequestSpecification;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringApplicationConfiguration(classes = Application.class)
+@WebIntegrationTest
 public class PiranhaViewIntegrationTest {
 	private static final String API_ENDPOINT = "http://localhost:3000/api";
 	private static final String BOATS_PATH = "/boats";
