@@ -1,14 +1,12 @@
 package com.piranhaview.service;
 
 import java.util.List;
-import java.util.PriorityQueue;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.common.collect.Lists;
 import com.piranhaview.data.BookingRepository;
-import com.piranhaview.data.TimeSlotRepository;
 import com.piranhaview.domain.Boat;
 import com.piranhaview.domain.Booking;
 import com.piranhaview.domain.TimeSlot;
@@ -17,15 +15,15 @@ import com.piranhaview.domain.TimeSlot;
 public class BookingService implements IBookingService {
 
 	private final BookingRepository bookingRepository;
-    private final TimeSlotRepository timeSlotRepository;
 	private final AssignmentService assignmentService;
+    private final TimeSlotService timeSlotService;
 
     @Autowired
     public BookingService(BookingRepository bookingRepository,
-    		TimeSlotRepository timeSlotRepository, AssignmentService assignmentService) {
+    		AssignmentService assignmentService, TimeSlotService timeSlotService) {
         this.bookingRepository = bookingRepository;
-        this.timeSlotRepository = timeSlotRepository;
         this.assignmentService = assignmentService;
+        this.timeSlotService = timeSlotService;
     }
 
 	@Override
@@ -36,35 +34,22 @@ public class BookingService implements IBookingService {
 	}
 
 	private void processBooking(Booking booked) {
-		TimeSlot timeSlot = timeSlotRepository.findOne(booked.getTimeslotId());
+		TimeSlot timeSlot = timeSlotService.findOne(booked.getTimeslotId());
 
-		PriorityQueue<Boat> boatQueue = new PriorityQueue<Boat>();
-
-		for (Boat boat : timeSlot.getBoats()) {
-			boatQueue.add(boat);
-		}
-		
 		int custCount = 0;
-		Boat boat = (!boatQueue.isEmpty()) ? boatQueue.remove() : null;
+		Boat boat = (!timeSlot.getBoatQueue().isEmpty()) ? timeSlot.getBoatQueue().remove() : null;
 		if (boat != null && boat.getCapacity() >= booked.getSize()) {
 			boat.setCapacity(boat.getCapacity() - booked.getSize());
-			boatQueue.add(boat);
+			timeSlot.getBoatQueue().add(boat);
 
 			// un-assign boat from other time slots
 			assignmentService.removeBoatAssignments(boat.getId(), timeSlot.getId());
 
 			custCount += booked.getSize();
 		}
-		
-		int available = 0;
-		if (boatQueue.peek() != null) {
-			available = boatQueue.peek().getCapacity();
-		}
 
-		timeSlot.setAvailability(available);
 		timeSlot.setCustomerCount(custCount);
-
-		timeSlotRepository.save(timeSlot);
+		timeSlotService.save(timeSlot);
 	}
 
 	@Override

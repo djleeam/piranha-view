@@ -3,6 +3,7 @@ package com.piranhaview.domain;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.PriorityQueue;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -54,6 +56,9 @@ public class TimeSlot {
 	@OneToMany(cascade={CascadeType.ALL})
 	@JoinColumn(name="timeslot_id", referencedColumnName="timeslot_id")
 	private List<Booking> bookings;
+
+	@Transient
+	private PriorityQueue<Boat> boatQueue;
 
 	public long getId() {
 		return id;
@@ -101,6 +106,24 @@ public class TimeSlot {
 
 	public void setBoats(List<Boat> boats) {
 		this.boats = boats;
+	}
+
+	public PriorityQueue<Boat> getBoatQueue() {
+		if (boatQueue != null) {
+			return boatQueue;
+		}
+		else {
+			if (boats != null) {
+				return new PriorityQueue<Boat>(boats);
+			}
+			else {
+				return new PriorityQueue<Boat>();
+			}
+		}
+	}
+
+	public void setBoatQueue(PriorityQueue<Boat> boatQueue) {
+		this.boatQueue = boatQueue;
 	}
 
 	public List<Booking> getBookings() {
