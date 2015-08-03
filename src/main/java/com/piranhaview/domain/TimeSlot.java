@@ -36,7 +36,8 @@ public class TimeSlot {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date startTime;
 
-	@Column(nullable=false)
+	@JsonProperty("duration")
+	@Column(nullable=false, columnDefinition="LONG default '0'")
 	private Long duration;
 
 	@Column(columnDefinition="INT default '0'")

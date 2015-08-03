@@ -26,17 +26,17 @@ import com.piranhaview.service.BookingService;
 @RequestMapping("/api/bookings")
 public class BookingController {
 
-    private final BookingService service;
+    private final BookingService bookingService;
 
     @Autowired
     public BookingController(BookingService service) {
-        this.service = service;
+        this.bookingService = service;
     }
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public HttpEntity<Resource<Booking>> create(@RequestBody @Valid Booking entity) {
-        Booking booking = service.create(entity);
+        Booking booking = bookingService.create(entity);
         Resource<Booking> resource = new Resource<Booking>(booking);
         resource.add(linkTo(methodOn(BookingController.class).findOne(booking.getId())).withSelfRel());
 
@@ -46,7 +46,7 @@ public class BookingController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public HttpEntity<Resource<Booking>> findOne(@PathVariable Long id) {
-        Booking booking = service.findOne(id);
+        Booking booking = bookingService.findOne(id);
         Resource<Booking> resource = new Resource<Booking>(booking);
         resource.add(linkTo(methodOn(BookingController.class).findOne(booking.getId())).withSelfRel());
 
@@ -56,7 +56,7 @@ public class BookingController {
     @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public HttpEntity<Resources<Resource<Booking>>> findAll() {
-        List<Booking> bookings = service.findAll();
+        List<Booking> bookings = bookingService.findAll();
         
         List<Resource<Booking>> resources = new ArrayList<Resource<Booking>>();
         for (Booking booking : bookings) {
