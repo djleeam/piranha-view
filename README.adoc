@@ -12,6 +12,8 @@ mvn spring-boot:run
 
 *Exploring the API:*
 
+http://localhost:3000/swagger-ui.html
+
 * Time Slots
 ----
 curl http://localhost:3000/api/timeslots
