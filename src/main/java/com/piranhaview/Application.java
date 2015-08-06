@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -28,16 +27,16 @@ public class Application {
 	@Bean
 	public Docket swaggerSpringMvcPlugin() {
 		return new Docket(DocumentationType.SWAGGER_2)
-				.groupName("piranha-view-api")
+				.apiInfo(apiInfo())
 				.select()
-					.apis(RequestHandlerSelectors.any())
-					.paths(PathSelectors.regex("/api.*"))
-					.build()
-				.apiInfo(apiInfo());
+				.paths(PathSelectors.regex("/api.*"))
+				.build();
 	}
 
 	private ApiInfo apiInfo() {
-		return new ApiInfo("Piranha View Api Documentation", "Piranha View Api Documentation", "1.0", "urn:tos",
-		          "ltruong0968@gmail.com", "Apache 2.0", "http://www.apache.org/licenses/LICENSE-2.0");
+		return new ApiInfo("Piranha View Api Documentation",
+				"Piranha View Api Documentation", "1.0", "urn:tos",
+				"ltruong0968@gmail.com", "Apache 2.0",
+				"http://www.apache.org/licenses/LICENSE-2.0");
 	}
 }
