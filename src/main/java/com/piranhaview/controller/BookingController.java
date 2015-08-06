@@ -1,7 +1,4 @@
-package com.piranhaview.domain;
-
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+package com.piranhaview.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +17,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.piranhaview.domain.Booking;
 import com.piranhaview.service.BookingService;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/api/bookings")
@@ -29,8 +30,8 @@ public class BookingController {
     private final BookingService bookingService;
 
     @Autowired
-    public BookingController(BookingService service) {
-        this.bookingService = service;
+    public BookingController(BookingService bookingService) {
+        this.bookingService = bookingService;
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -66,5 +67,11 @@ public class BookingController {
         }
 
         return new HttpEntity<Resources<Resource<Booking>>>(new Resources<Resource<Booking>>(resources));
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteOne(@PathVariable Long id) {
+        bookingService.removeOne(id);
     }
 }

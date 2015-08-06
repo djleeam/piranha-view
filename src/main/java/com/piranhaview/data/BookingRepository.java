@@ -1,11 +1,11 @@
 package com.piranhaview.data;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.piranhaview.domain.Booking;
 
-@Repository
+@RepositoryRestResource(collectionResourceRel = "bookings", path = "bookings")
 public interface BookingRepository extends PagingAndSortingRepository<Booking, Long> {
 	// add search methods here
 }

@@ -12,10 +12,16 @@ public interface ITimeSlotService {
 
 	List<TimeSlot> findAll();
 
+	List<TimeSlot> findByStartTime(String startTime);
+
+	List<TimeSlot> findByDuration(Long duration);
+
 	void save(TimeSlot timeSlot);
 
 	void updateTimeSlotAvailability(Long timeSlotId);
 
 	void updateTimeSlotAvailabilities();
+
+	void removeOne(Long id);
 
 }

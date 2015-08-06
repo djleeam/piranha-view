@@ -61,4 +61,9 @@ public class BookingService implements IBookingService {
 	public List<Booking> findAll() {
 		return Lists.newArrayList(bookingRepository.findAll());
 	}
+
+	@Override
+	public void removeOne(Long id) {
+		bookingRepository.delete(id);
+	}
 }

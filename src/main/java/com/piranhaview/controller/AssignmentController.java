@@ -1,7 +1,4 @@
-package com.piranhaview.domain;
-
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+package com.piranhaview.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +17,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.piranhaview.domain.Assignment;
 import com.piranhaview.service.AssignmentService;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/api/assignments")

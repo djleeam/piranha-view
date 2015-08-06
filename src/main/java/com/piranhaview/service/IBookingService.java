@@ -12,4 +12,6 @@ public interface IBookingService {
 
 	List<Booking> findAll();
 
+	void removeOne(Long id);
+
 }

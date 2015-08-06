@@ -35,6 +35,16 @@ public class TimeSlotService implements ITimeSlotService {
 	}
 
 	@Override
+	public List<TimeSlot> findByStartTime(String startTime) {
+		return Lists.newArrayList(timeSlotRepository.findByStartTime(startTime));
+	}
+
+	@Override
+	public List<TimeSlot> findByDuration(Long duration) {
+		return Lists.newArrayList(timeSlotRepository.findByDuration(duration));
+	}
+
+	@Override
 	public void save(TimeSlot timeSlot) {
 		timeSlotRepository.save(timeSlot);
 	}
@@ -62,5 +72,10 @@ public class TimeSlotService implements ITimeSlotService {
 
 		timeSlot.setAvailability(maxAvailable);
 		timeSlotRepository.save(timeSlot);
+	}
+
+	@Override
+	public void removeOne(Long id) {
+		timeSlotRepository.delete(id);
 	}
 }

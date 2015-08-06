@@ -20,6 +20,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -58,6 +59,7 @@ public class TimeSlot {
 	@JoinColumn(name="timeslot_id", referencedColumnName="timeslot_id")
 	private List<Booking> bookings;
 
+	@JsonIgnore
 	@Transient
 	private PriorityQueue<Boat> boatQueue;
 
