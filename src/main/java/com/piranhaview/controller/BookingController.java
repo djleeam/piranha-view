@@ -10,6 +10,7 @@ import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,10 +49,15 @@ public class BookingController {
     @ResponseStatus(HttpStatus.OK)
     public HttpEntity<Resource<Booking>> findOne(@PathVariable Long id) {
         Booking booking = bookingService.findOne(id);
-        Resource<Booking> resource = new Resource<Booking>(booking);
-        resource.add(linkTo(methodOn(BookingController.class).findOne(booking.getId())).withSelfRel());
 
-        return new HttpEntity<Resource<Booking>>(resource);
+        if (booking != null) {
+	        Resource<Booking> resource = new Resource<Booking>(booking);
+	        resource.add(linkTo(methodOn(BookingController.class).findOne(booking.getId())).withSelfRel());
+	        return new HttpEntity<Resource<Booking>>(resource);
+        }
+        else {
+        	return new ResponseEntity<Resource<Booking>>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @RequestMapping(method = RequestMethod.GET)

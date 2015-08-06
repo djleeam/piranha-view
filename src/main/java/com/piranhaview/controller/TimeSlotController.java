@@ -10,6 +10,7 @@ import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,10 +50,15 @@ public class TimeSlotController {
     @ResponseStatus(HttpStatus.OK)
     public HttpEntity<Resource<TimeSlot>> findOne(@PathVariable Long id) {
         TimeSlot timeSlot = timeSlotService.findOne(id);
-        Resource<TimeSlot> resource = new Resource<TimeSlot>(timeSlot);
-        resource.add(linkTo(methodOn(TimeSlotController.class).findOne(timeSlot.getId())).withSelfRel());
 
-        return new HttpEntity<Resource<TimeSlot>>(resource);
+        if (timeSlot != null) {
+	        Resource<TimeSlot> resource = new Resource<TimeSlot>(timeSlot);
+	        resource.add(linkTo(methodOn(TimeSlotController.class).findOne(timeSlot.getId())).withSelfRel());
+	        return new HttpEntity<Resource<TimeSlot>>(resource);
+        }
+        else {
+        	return new ResponseEntity<Resource<TimeSlot>>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @RequestMapping(method = RequestMethod.GET)
