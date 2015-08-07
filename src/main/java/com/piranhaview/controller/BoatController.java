@@ -1,5 +1,7 @@
 package com.piranhaview.controller;
 
+import io.swagger.annotations.ApiOperation;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,16 +37,18 @@ public class BoatController {
         this.boatService = boatService;
     }
 
+    @ApiOperation(value = "Create a boat", response = Boat.class)
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public HttpEntity<Resource<Boat>> create(@RequestBody @Valid Boat entity) {
-        Boat boat = boatService.create(entity);
-        Resource<Boat> resource = new Resource<Boat>(boat);
-        resource.add(linkTo(methodOn(BoatController.class).findOne(boat.getId())).withSelfRel());
+    public HttpEntity<Resource<Boat>> create(@RequestBody @Valid Boat boat) {
+        Boat created = boatService.create(boat);
+        Resource<Boat> resource = new Resource<Boat>(created);
+        resource.add(linkTo(methodOn(BoatController.class).findOne(created.getId())).withSelfRel());
 
         return new HttpEntity<Resource<Boat>>(resource);
     }
 
+    @ApiOperation(value = "Get a boat by id", response = Boat.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public HttpEntity<Resource<Boat>> findOne(@PathVariable Long id) {
@@ -60,6 +64,7 @@ public class BoatController {
         }
     }
 
+    @ApiOperation(value = "Get all boats", response = Boat.class, responseContainer = "List")
     @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public HttpEntity<Resources<Resource<Boat>>> findAll() {
@@ -75,6 +80,7 @@ public class BoatController {
         return new HttpEntity<Resources<Resource<Boat>>>(new Resources<Resource<Boat>>(resources));
     }
 
+    @ApiOperation(value = "Delete a boat by id")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteOne(@PathVariable Long id) {

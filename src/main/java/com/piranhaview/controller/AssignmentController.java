@@ -1,5 +1,7 @@
 package com.piranhaview.controller;
 
+import io.swagger.annotations.ApiOperation;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,16 +37,18 @@ public class AssignmentController {
         this.service = service;
     }
 
+    @ApiOperation(value = "Create an assignment", response = Assignment.class)
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public HttpEntity<Resource<Assignment>> create(@RequestBody @Valid Assignment entity) {
-        Assignment assignment = service.create(entity);
-        Resource<Assignment> resource = new Resource<Assignment>(assignment);
-        resource.add(linkTo(methodOn(AssignmentController.class).findOne(assignment.getId())).withSelfRel());
+    public HttpEntity<Resource<Assignment>> create(@RequestBody @Valid Assignment assignment) {
+        Assignment created = service.create(assignment);
+        Resource<Assignment> resource = new Resource<Assignment>(created);
+        resource.add(linkTo(methodOn(AssignmentController.class).findOne(created.getId())).withSelfRel());
 
         return new HttpEntity<Resource<Assignment>>(resource);
     }
 
+    @ApiOperation(value = "Get an assignment by id", response = Assignment.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public HttpEntity<Resource<Assignment>> findOne(@PathVariable Long id) {
@@ -60,6 +64,7 @@ public class AssignmentController {
         }
     }
 
+    @ApiOperation(value = "Get all assignments", response = Assignment.class, responseContainer = "List")
     @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public HttpEntity<Resources<Resource<Assignment>>> findAll() {
@@ -75,6 +80,7 @@ public class AssignmentController {
         return new HttpEntity<Resources<Resource<Assignment>>>(new Resources<Resource<Assignment>>(resources));
     }
 
+    @ApiOperation(value = "Delete an assignment by id")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteOne(@PathVariable Long id) {

@@ -1,5 +1,7 @@
 package com.piranhaview.controller;
 
+import io.swagger.annotations.ApiOperation;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,16 +38,18 @@ public class TimeSlotController {
         this.timeSlotService = timeSlotService;
     }
 
+    @ApiOperation(value = "Create a time slot", response = TimeSlot.class)
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public HttpEntity<Resource<TimeSlot>> create(@RequestBody @Valid TimeSlot entity) {
-        TimeSlot timeSlot = timeSlotService.create(entity);
-        Resource<TimeSlot> resource = new Resource<TimeSlot>(timeSlot);
-        resource.add(linkTo(methodOn(TimeSlotController.class).findOne(timeSlot.getId())).withSelfRel());
+    public HttpEntity<Resource<TimeSlot>> create(@RequestBody @Valid TimeSlot timeSlot) {
+        TimeSlot created = timeSlotService.create(timeSlot);
+        Resource<TimeSlot> resource = new Resource<TimeSlot>(created);
+        resource.add(linkTo(methodOn(TimeSlotController.class).findOne(created.getId())).withSelfRel());
 
         return new HttpEntity<Resource<TimeSlot>>(resource);
     }
 
+    @ApiOperation(value = "Get a time slot by id", response = TimeSlot.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public HttpEntity<Resource<TimeSlot>> findOne(@PathVariable Long id) {
@@ -61,6 +65,7 @@ public class TimeSlotController {
         }
     }
 
+    @ApiOperation(value = "Get all time slots", response = TimeSlot.class, responseContainer = "List")
     @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public HttpEntity<Resources<Resource<TimeSlot>>> findAll() {
@@ -76,6 +81,7 @@ public class TimeSlotController {
         return new HttpEntity<Resources<Resource<TimeSlot>>>(new Resources<Resource<TimeSlot>>(resources));
     }
 
+    @ApiOperation(value = "Get time slots by date", response = TimeSlot.class, responseContainer = "List")
     @RequestMapping(value = "/search/findByStartTime", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public HttpEntity<Resources<Resource<TimeSlot>>> findByStartTime(@RequestParam("date") String startTime) {
@@ -91,6 +97,7 @@ public class TimeSlotController {
         return new HttpEntity<Resources<Resource<TimeSlot>>>(new Resources<Resource<TimeSlot>>(resources));
     }
 
+    @ApiOperation(value = "Delete a time slot by id")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteOne(@PathVariable Long id) {

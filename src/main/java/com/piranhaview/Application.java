@@ -35,7 +35,7 @@ public class Application {
 
 	private ApiInfo apiInfo() {
 		return new ApiInfo("Piranha View Api Documentation",
-				"Piranha View Api Documentation", "1.0", "urn:tos",
+				"Piranha View Api Documentation", "1.0", "",
 				"ltruong0968@gmail.com", "Apache 2.0",
 				"http://www.apache.org/licenses/LICENSE-2.0");
 	}

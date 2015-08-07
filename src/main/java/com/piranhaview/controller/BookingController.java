@@ -1,5 +1,7 @@
 package com.piranhaview.controller;
 
+import io.swagger.annotations.ApiOperation;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,16 +37,18 @@ public class BookingController {
         this.bookingService = bookingService;
     }
 
+    @ApiOperation(value = "Create a booking", response = Booking.class)
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public HttpEntity<Resource<Booking>> create(@RequestBody @Valid Booking entity) {
-        Booking booking = bookingService.create(entity);
-        Resource<Booking> resource = new Resource<Booking>(booking);
-        resource.add(linkTo(methodOn(BookingController.class).findOne(booking.getId())).withSelfRel());
+    public HttpEntity<Resource<Booking>> create(@RequestBody @Valid Booking booking) {
+        Booking created = bookingService.create(booking);
+        Resource<Booking> resource = new Resource<Booking>(created);
+        resource.add(linkTo(methodOn(BookingController.class).findOne(created.getId())).withSelfRel());
 
         return new HttpEntity<Resource<Booking>>(resource);
     }
 
+    @ApiOperation(value = "Get a booking by id", response = Booking.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public HttpEntity<Resource<Booking>> findOne(@PathVariable Long id) {
@@ -60,6 +64,7 @@ public class BookingController {
         }
     }
 
+    @ApiOperation(value = "Get all bookings", response = Booking.class, responseContainer = "List")
     @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public HttpEntity<Resources<Resource<Booking>>> findAll() {
@@ -75,6 +80,7 @@ public class BookingController {
         return new HttpEntity<Resources<Resource<Booking>>>(new Resources<Resource<Booking>>(resources));
     }
 
+    @ApiOperation(value = "Delete a booking by id")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteOne(@PathVariable Long id) {
