@@ -1,5 +1,6 @@
 package com.piranhaview.controller;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ import com.piranhaview.service.BoatService;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+@Api(value = "boats", description = "Operations for boats")
 @RestController
 @RequestMapping("/api/boats")
 public class BoatController {

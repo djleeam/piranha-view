@@ -1,5 +1,6 @@
 package com.piranhaview.controller;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ import com.piranhaview.service.AssignmentService;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+@Api(value = "assignments", description = "Operations for assignments")
 @RestController
 @RequestMapping("/api/assignments")
 public class AssignmentController {

@@ -1,5 +1,6 @@
 package com.piranhaview.controller;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ import com.piranhaview.service.TimeSlotService;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+@Api(value = "timeslots", description = "Operations for time slots")
 @RestController
 @RequestMapping("/api/timeslots")
 public class TimeSlotController {
