@@ -2,6 +2,7 @@ package com.piranhaview.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +44,13 @@ public class TimeSlotController {
     @ApiOperation(value = "Create a time slot", response = TimeSlot.class)
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public HttpEntity<Resource<TimeSlot>> create(@RequestBody @Valid TimeSlot timeSlot) {
+    public HttpEntity<Resource<TimeSlot>> create(
+    		@ApiParam(value = "Example with required elements:\n"
+    							+ "<pre><code>{\n"
+    							+ "  \"start_time\": 1437533075000,\n"
+    							+ "  \"duration\": 120\n"
+    							+ "}</pre></code>", required = true)
+    		@RequestBody @Valid TimeSlot timeSlot) {
         TimeSlot created = timeSlotService.create(timeSlot);
         Resource<TimeSlot> resource = new Resource<TimeSlot>(created);
         resource.add(linkTo(methodOn(TimeSlotController.class).findOne(created.getId())).withSelfRel());
@@ -86,7 +93,10 @@ public class TimeSlotController {
     @ApiOperation(value = "Get time slots by date", response = TimeSlot.class, responseContainer = "List")
     @RequestMapping(value = "/search/findByStartTime", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public HttpEntity<Resources<Resource<TimeSlot>>> findByStartTime(@RequestParam("date") String startTime) {
+    public HttpEntity<Resources<Resource<TimeSlot>>> findByStartTime(
+    		@ApiParam(value = "Example: 2015-07-22", required = true)
+    		@RequestParam("date") String startTime) {
+
         List<TimeSlot> timeSlots = timeSlotService.findByStartTime(startTime);
         
         List<Resource<TimeSlot>> resources = new ArrayList<Resource<TimeSlot>>();

@@ -39,7 +39,7 @@ public class PiranhaViewIntegrationTest {
 		.expect()
 			.statusCode(200).log().all()
 		.when()
-			.get(API_ENDPOINT + "/timeslots/search/findByStartTime?date=2015-07-21");
+			.get(API_ENDPOINT + "/timeslots/search/findByStartTime?date=2015-07-22");
 
 		Assert.assertEquals(120, resp1.jsonPath().getInt("_embedded.timeslots[0].duration"));
 		Assert.assertEquals(8, resp1.jsonPath().getInt("_embedded.timeslots[0].availability"));
@@ -53,7 +53,7 @@ public class PiranhaViewIntegrationTest {
 		.expect()
 			.statusCode(200).log().all()
 		.when()
-			.get(API_ENDPOINT + "/timeslots/search/findByStartTime?date=2015-07-21");
+			.get(API_ENDPOINT + "/timeslots/search/findByStartTime?date=2015-07-22");
 
 		Assert.assertEquals(120, resp2.jsonPath().getInt("_embedded.timeslots[0].duration"));
 		Assert.assertEquals(4, resp2.jsonPath().getInt("_embedded.timeslots[0].availability"));

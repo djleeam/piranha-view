@@ -2,6 +2,7 @@ package com.piranhaview.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,13 @@ public class BoatController {
     @ApiOperation(value = "Create a boat", response = Boat.class)
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public HttpEntity<Resource<Boat>> create(@RequestBody @Valid Boat boat) {
+    public HttpEntity<Resource<Boat>> create(
+    		@ApiParam(value = "Example with required elements:\n"
+					+ "<pre><code>{\n"
+					+ "  \"capacity\": 8,\n"
+					+ "  \"name\": Amazon Express\n"
+					+ "}</pre></code>", required = true)
+    		@RequestBody @Valid Boat boat) {
         Boat created = boatService.create(boat);
         Resource<Boat> resource = new Resource<Boat>(created);
         resource.add(linkTo(methodOn(BoatController.class).findOne(created.getId())).withSelfRel());

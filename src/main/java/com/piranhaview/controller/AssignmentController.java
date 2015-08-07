@@ -2,6 +2,7 @@ package com.piranhaview.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,13 @@ public class AssignmentController {
     @ApiOperation(value = "Create an assignment", response = Assignment.class)
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public HttpEntity<Resource<Assignment>> create(@RequestBody @Valid Assignment assignment) {
+    public HttpEntity<Resource<Assignment>> create(
+    		@ApiParam(value = "Example with required elements:\n"
+					+ "<pre><code>{\n"
+					+ "  \"timeslot_id\": 1,\n"
+					+ "  \"boat_id\": 1\n"
+					+ "}</pre></code>", required = true)
+    		@RequestBody @Valid Assignment assignment) {
         Assignment created = service.create(assignment);
         Resource<Assignment> resource = new Resource<Assignment>(created);
         resource.add(linkTo(methodOn(AssignmentController.class).findOne(created.getId())).withSelfRel());

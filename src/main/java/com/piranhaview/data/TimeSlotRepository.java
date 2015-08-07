@@ -12,7 +12,7 @@ import com.piranhaview.domain.TimeSlot;
 @RepositoryRestResource(collectionResourceRel = "timeslots", path = "timeslots")
 public interface TimeSlotRepository extends PagingAndSortingRepository<TimeSlot, Long> {
 
-	@Query("SELECT t FROM TimeSlot t WHERE FORMATDATETIME(t.startTime,'yyyy-MM-dd') = :date")
+	@Query("SELECT t FROM TimeSlot t WHERE FORMATDATETIME(t.startTime,'yyyy-MM-dd', 'en', 'GMT') = :date")
 	List<TimeSlot> findByStartTime(@Param("date") String date);
 
 	@Query("SELECT t FROM TimeSlot t WHERE t.duration = :duration")

@@ -2,6 +2,7 @@ package com.piranhaview.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,13 @@ public class BookingController {
     @ApiOperation(value = "Create a booking", response = Booking.class)
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public HttpEntity<Resource<Booking>> create(@RequestBody @Valid Booking booking) {
+    public HttpEntity<Resource<Booking>> create(
+    		@ApiParam(value = "Example with required elements:\n"
+					+ "<pre><code>{\n"
+					+ "  \"timeslot_id\": 1,\n"
+					+ "  \"size\": 6\n"
+					+ "}</pre></code>", required = true)
+    		@RequestBody @Valid Booking booking) {
         Booking created = bookingService.create(booking);
         Resource<Booking> resource = new Resource<Booking>(created);
         resource.add(linkTo(methodOn(BookingController.class).findOne(created.getId())).withSelfRel());
