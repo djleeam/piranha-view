@@ -47,7 +47,7 @@ public class BoatController {
     		@ApiParam(value = "Example with required elements:\n"
 					+ "<pre><code>{\n"
 					+ "  \"capacity\": 8,\n"
-					+ "  \"name\": Amazon Express\n"
+					+ "  \"name\": \"Amazon Express\"\n"
 					+ "}</pre></code>", required = true)
     		@RequestBody @Valid Boat boat) {
         Boat created = boatService.create(boat);
