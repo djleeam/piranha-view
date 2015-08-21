@@ -5,11 +5,16 @@
 mvn -U clean install
 ----
 
-* To start application
+* To start application locally
 ----
 mvn spring-boot:run
 ----
 
+* To reach application locally
+----
+http://localhost:3000/swagger-ui.html
+----
+
 *Exploring the API:*
 
-http://localhost:3000/swagger-ui.html
+http://piranha-view.herokuapp.com/swagger-ui.html
