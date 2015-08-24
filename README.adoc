@@ -14,7 +14,3 @@ mvn spring-boot:run
 ----
 http://localhost:3000/swagger-ui.html
 ----
-
-*Exploring the API:*
-
-http://piranha-view.herokuapp.com/swagger-ui.html
